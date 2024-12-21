@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LedgerLands</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo Placeholder -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <img class="h-10 w-10 bg-white rounded-full" src="{% static 'ownership/LedgerLand.png' %}" alt="Logo">
+                        <span class="ml-3 text-xl font-bold">LedgerLands</span>
+                    </div>
+                    
+                    <!-- Navigation Links -->
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" onclick="scrollToSection('home')" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#" onclick="scrollToSection('about-us')" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">About Us</a>
+                        <a href="#" onclick="scrollToSection('faq')" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                        <a href="{% url 'admin_login' %}" target=blank onclick="scrollToSection('faq')" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Admin Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="pt-16">
+        <!-- Home Section -->
+        <section id="home" class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2">
+                    <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+                        Secure Blockchain Land Registry
+                    </h1>
+                    <p class="mt-3 text-xl text-gray-600">
+                        Transparent, Secure, and Efficient Land Transaction Platform
+                    </p>
+                    <div class="mt-10 flex">
+                        <a href="{% url 'registration' %}" target="_blank" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-300">
+                            Register
+                        </a>
+                        <a href="{% url 'login' %}" class="ml-4 bg-gray-200 text-gray-800 px-6 py-3 rounded-md hover:bg-gray-300 transition duration-300">
+                            Login
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Stats Section -->
+                <div class="lg:w-1/2 mt-10 lg:mt-0 grid grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <i class="fas fa-map-marked-alt text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-900">500+</h3>
+                        <p class="text-gray-600">Registered Lands</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <i class="fas fa-users text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-900">250+</h3>
+                        <p class="text-gray-600">Verified Users</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <i class="fas fa-shield-alt text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-900">99.9%</h3>
+                        <p class="text-gray-600">Security Rate</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <i class="fas fa-exchange-alt text-4xl text-red-600 mb-4"></i>
+                        <h3 class="text-3xl font-bold text-gray-900">150+</h3>
+                        <p class="text-gray-600">Transactions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about-us" class="bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-12">About LedgerLands</h2>
+                <div class="lg:flex items-center space-x-8">
+                    <div class="lg:w-1/2 mb-8 lg:mb-0">
+                        <img src="{% static 'ownership/random.jpg' %}" alt="LedgerLands Team" class="rounded-lg shadow-lg">
+                    </div>
+                    <div class="lg:w-1/2">
+                        <p class="text-xl text-gray-700 mb-6">
+                            LedgerLands is a revolutionary blockchain-based platform designed to transform land registration and transactions. Our mission is to bring transparency, security, and efficiency to real estate processes.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <i class="fas fa-lock text-blue-600 text-3xl mb-4"></i>
+                                <h3 class="text-xl font-bold mb-3">Secure Transactions</h3>
+                                <p class="text-gray-600">Blockchain technology ensures every transaction is immutable and transparent.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <i class="fas fa-globe text-green-600 text-3xl mb-4"></i>
+                                <h3 class="text-xl font-bold mb-3">Global Accessibility</h3>
+                                <p class="text-gray-600">Access and verify land records from anywhere in the world.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section (Placeholder) -->
+        <section id="faq" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-12">Frequently Asked Questions</h2>
+                <div class="max-w-3xl mx-auto space-y-6">
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">How does blockchain ensure land registry security?</h3>
+                        <p class="text-gray-600">Blockchain creates an immutable, transparent record of all land transactions. Each transaction is cryptographically sealed, making it virtually impossible to alter or forge records without detection.</p>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">What makes our platform different?</h3>
+                        <p class="text-gray-600">We combine cutting-edge blockchain technology with user-friendly interfaces to simplify land registration and transactions. Our platform offers real-time verification, complete transparency, and reduced bureaucratic hurdles.</p>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Is my land data completely private?</h3>
+                        <p class="text-gray-600">While blockchain ensures transparency, we implement advanced privacy protocols. Only authorized parties can access specific details, and personal information is encrypted and protected.</p>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">How quickly can I register my land?</h3>
+                        <p class="text-gray-600">Our blockchain-powered platform dramatically reduces registration time. What typically took weeks can now be completed in hours, with instant verification and minimal paperwork.</p>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">What documents do I need to register?</h3>
+                        <p class="text-gray-600">You'll need proof of ownership, government-issued ID, land survey documents, and any previous transaction records. Our platform guides you through each step of document submission and verification.</p>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Are there any transaction fees?</h3>
+                        <p class="text-gray-600">We charge minimal transaction fees compared to traditional methods. Our blockchain technology eliminates multiple intermediary costs, passing the savings directly to our users.</p>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">Can international users use this platform?</h3>
+                        <p class="text-gray-600">Yes! Our platform is designed for global accessibility. We support multiple languages and can integrate with various international land registry systems.</p>
+                    </div>
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4">How secure is the blockchain technology?</h3>
+                        <p class="text-gray-600">Our blockchain uses military-grade encryption and a decentralized network. This means no single point of failure exists, and each transaction is verified by multiple nodes, ensuring maximum security.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 LedgerLands. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-blue-400">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-400">Terms of Service</a>
+                <a href="#" class="hover:text-blue-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

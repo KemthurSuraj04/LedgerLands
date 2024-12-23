@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LedgerLands - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <script>
+        // Automatically hide the error message after 5 seconds
+        document.addEventListener("DOMContentLoaded", function () {
+            const errorMessage = document.getElementById("error-message");
+            if (errorMessage) {
+                setTimeout(() => {
+                    errorMessage.style.transition = "opacity 0.5s ease";
+                    errorMessage.style.opacity = "0";
+                    setTimeout(() => {
+                        errorMessage.remove(); // Remove the element completely after fading out
+                    }, 500);
+                }, 5000);
+            }
+        });
+    </script>
+    
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img class="h-10 w-10 bg-white rounded-full" src="{% static 'ownership/LedgerLand.png' %}" alt="Logo">
+                        <span class="ml-3 text-xl font-bold">LedgerLands</span>
+                    </div>
+                    
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="{% url 'landing' %}" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
+            <div class="p-8 bg-blue-600 text-white text-center">
+                {% block header %}<h1 class="text-4xl font-bold">User Login</h1>{% endblock %}
+                <p class="mt-2 text-blue-100">Access Your LedgerLands Account</p>
+            </div>
+
+            {% if error %}
+                <div id="error-message" class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 rounded mb-4">
+                    <p class="text-sm font-semibold">{{ error }}</p>
+                </div>
+            {% endif %}
+
+            {% block form %}
+            
+            <form class="p-8 space-y-6" action="{% url 'login' %}" method="POST">{% endblock%}
+                {% csrf_token %}
+
+
+                <!-- Email Address -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Enter your email address"
+                    >
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Enter your password"
+                    >
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-6">
+                    <button 
+                        type="submit" 
+                        class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300 flex items-center justify-center space-x-2"
+                    >
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Login</span>
+                    </button>
+                </div>
+
+                
+
+                {% block registration %}
+
+                <!-- Registration Link -->
+                <div class="text-center mt-4">
+                    <p class="text-sm text-gray-600">
+                        Don't have an account? 
+                        <a href="{% url 'registration' %}" class="text-blue-600 hover:text-blue-800 font-medium">
+                            Register here
+                        </a>
+                    </p>
+                </div>
+
+                {% endblock %}
+            </form>
+        </div>
+    </div>
+
+    
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 BlockLand Registry. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-blue-400">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-400">Terms of Service</a>
+                <a href="#" class="hover:text-blue-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

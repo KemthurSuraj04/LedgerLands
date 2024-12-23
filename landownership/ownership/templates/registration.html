@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LedgerLands - Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script defer>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            if (typeof window.ethereum !== "undefined") {
+                try {
+                    // Request permission to connect accounts
+                    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    
+                    if (accounts.length > 0) {
+                        // Set the active account in the hidden field
+                        document.getElementById("account-address").value = accounts[0];
+                    } else {
+                        console.error("No active MetaMask account found.");
+                        alert("Please ensure you have an active MetaMask account.");
+                    }
+    
+                    // Optional: Listen for account changes and update the hidden field
+                    window.ethereum.on("accountsChanged", (newAccounts) => {
+                        if (newAccounts.length > 0) {
+                            document.getElementById("account-address").value = newAccounts[0];
+                            console.log("MetaMask account changed:", newAccounts[0]);
+                        } else {
+                            alert("Please connect to MetaMask.");
+                        }
+                    });
+    
+                } catch (error) {
+                    console.error("Error connecting to MetaMask:", error);
+                    alert("Error connecting to MetaMask. Please try again.");
+                }
+            } else {
+                console.error("MetaMask is not installed.");
+                alert("Please install MetaMask.");
+            }
+        });
+
+        // Dynamic form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role');
+            const landsOwnedDiv = document.getElementById('lands_owned_div');
+            const sellerFields = document.getElementById('seller-specific-fields');
+            
+            function toggleFields() {
+                if (roleSelect.value === 'seller') {
+                    landsOwnedDiv.classList.remove('hidden');
+                    sellerFields.classList.remove('hidden');
+                } else {
+                    landsOwnedDiv.classList.add('hidden');
+                    sellerFields.classList.add('hidden');
+                }
+            }
+
+            roleSelect.addEventListener('change', toggleFields);
+            toggleFields(); // Initial call
+
+        
+        });
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Navbar (Same as previous design) -->
+    <nav class="bg-blue-600 text-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img class="h-10 w-10 bg-white rounded-full" src="{% static 'ownership/LedgerLand.png' %}" alt="Logo">
+                        <span class="ml-3 text-xl font-bold">LedgerLands</span>
+                    </div>
+                    
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="{% url 'landing' %}"  class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Registration Section -->
+
+    <!--**********************************************************************************************************************************-->
+
+    
+
+
+    <div class="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
+            <div class="p-8 bg-blue-600 text-white text-center">
+                <h1 class="text-4xl font-bold">User Registration</h1>
+                <p class="mt-2 text-blue-100">Join the LedgerLands Platform</p>
+            </div>
+            
+            <form class="p-8 space-y-6" action="{% url 'registration' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="hidden" id="account-address" name="account-address" value=""> <!-- this is to get the current account address in metamask-->
+                
+                
+
+                <!-- Personal Information -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+                        <input type="number" id="age" name="age" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                        <input type="text" id="city" name="city" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+
+                <!-- Identification -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="aadhar_number" class="block text-sm font-medium text-gray-700">Aadhar Number</label>
+                        <input type="text" id="aadhar_number" name="aadhar_number" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="pan_number" class="block text-sm font-medium text-gray-700">PAN Number</label>
+                        <input type="text" id="pan_number" name="pan_number" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="text" id="password" name="password" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                </div>
+
+                <!-- Document Upload -->
+                <div>
+                    <label for="document" class="block text-sm font-medium text-gray-700">Upload Aadhar Document (PDF)</label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                        <div class="space-y-1 text-center">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="document" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                                    <span>Upload a file</span>
+                                    <input id="document" name="document" type="file" class="sr-only" accept=".pdf" required>
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PDF up to 10MB</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="pt-6">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300 flex items-center justify-center space-x-2">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Create Account</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer (Same as previous design) -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2024 BlockLand Registry. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-blue-400">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-400">Terms of Service</a>
+                <a href="#" class="hover:text-blue-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

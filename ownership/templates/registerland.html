@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LedgerLands - Land Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex">
+    <!-- Left Sidebar Navigation -->
+    <div class="w-64 bg-blue-700 text-white min-h-screen p-6 shadow-xl">
+        <div class="flex items-center mb-10">
+            <img class="h-12 w-12 bg-white rounded-full mr-3" src="{% static 'ownership/LedgerLand.png' %}" alt="Logo">
+            <h2 class="text-2xl font-bold">LedgerLands</h2>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="mb-10 text-center">
+            <div class="w-24 h-24 rounded-full bg-blue-500 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user text-4xl text-white"></i>
+            </div>
+            <h3 class="text-xl font-semibold">{{user.name}}</h3>
+            <p class="text-blue-200">User</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav>
+            <ul class="space-y-2">
+                <li>
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300 
+                    {% if active_page == 'home' %}bg-blue-600{% endif %}">
+                        <i class="fas fa-home mr-3"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300
+                    {% if active_page == 'register' %}bg-blue-600{% endif %}">
+                        <i class="fas fa-file-signature mr-3"></i>
+                        Register Land
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300
+                    {% if active_page == 'buy' %}bg-blue-600{% endif %}">
+                        <i class="fas fa-shopping-cart mr-3"></i>
+                        Buy Land
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300
+                    {% if active_page == 'sell' %}bg-blue-600{% endif %}">
+                        <i class="fas fa-hand-holding-usd mr-3"></i>
+                        Sell Land
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300
+                    {% if active_page == 'lands' %}bg-blue-600{% endif %}">
+                        <i class="fas fa-map-marked-alt mr-3"></i>
+                        Lands Owned
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300
+                    {% if active_page == 'help' %}bg-blue-600{% endif %}">
+                        <i class="fas fa-question-circle mr-3"></i>
+                        Help & Support
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300
+                    {% if active_page == 'profile' %}bg-blue-600{% endif %}">
+                        <i class="fas fa-user-circle mr-3"></i>
+                        Profile
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="fixed bottom-6 left-6 w-52">
+            <a href="#" class="w-full bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-lg flex items-center justify-center transition duration-300">
+                <i class="fas fa-sign-out-alt mr-3"></i>
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 bg-gray-100 p-10">
+        <!-- Header -->
+        <header class="bg-white shadow-md rounded-lg p-6 mb-10">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold text-gray-800">Land Registration</h1>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <i class="fas fa-bell text-gray-600 text-xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                        <i class="fas fa-user text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Registration Form -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <form class="max-w-3xl mx-auto space-y-6" action="{% url 'registerland' %}" method="POST">
+                {% csrf_token %}
+                <!-- Grid layout for form fields -->
+                <div class="grid grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <div>
+                            <label for="area" class="block text-sm font-medium text-gray-700 mb-2">Area (in sq. ft)</label>
+                            <input type="number" id="area" name="area" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="city" class="block text-sm font-medium text-gray-700 mb-2">City</label>
+                            <input type="text" id="city" name="city" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="state" class="block text-sm font-medium text-gray-700 mb-2">State</label>
+                            <input type="text" id="state" name="state" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="landPrice" class="block text-sm font-medium text-gray-700 mb-2">Land Price</label>
+                            <input type="number" id="landPrice" name="landPrice" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <div>
+                            <label for="propertyPID" class="block text-sm font-medium text-gray-700 mb-2">Property PID</label>
+                            <input type="number" id="propertyPID" name="propertyPID" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="physicalSurveyNumber" class="block text-sm font-medium text-gray-700 mb-2">Physical Survey Number</label>
+                            <input type="number" id="physicalSurveyNumber" name="physicalSurveyNumber" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="ipfsHash" class="block text-sm font-medium text-gray-700 mb-2">IPFS Hash</label>
+                            <input type="text" id="ipfsHash" name="ipfsHash" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="document" class="block text-sm font-medium text-gray-700 mb-2">Document</label>
+                            <input type="text" id="document" name="document" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Register Button -->
+                <div class="text-center pt-6">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg flex items-center justify-center mx-auto transition duration-300">
+                        <i class="fas fa-file-signature mr-2"></i>
+                        Register
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

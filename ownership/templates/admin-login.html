@@ -1,0 +1,17 @@
+{% extends 'login.html' %}
+
+{% block header %}
+
+<h1 class="text-4xl font-bold">Admin Login</h1>
+
+{% endblock %}
+
+
+{% block registration %}
+{% endblock %}
+
+
+{% block form %}
+<form class="p-8 space-y-6" action="{% url 'admin_login' %}" method="POST">
+
+{% endblock %}
